@@ -44,13 +44,12 @@ export default class ExpenseTrack extends React.Component {
  };
  render() {
  return (
- <View>
+ <View style={{ flex: 1, flexDirection: "column", alignItems: "stretch" }}>
  <Fab
  active={this.state.fabActive}
- direction="up"
+ direction="down"
  containerStyle={{}}
- style={{ backgroundColor: "#5067FF", marginBottom:60 }}
- position="bottomRight"
+ style={{ backgroundColor: "#5067FF" }}
  onPress={() => this.setState({ fabActive: !this.state.fabActive })}
  >
  <Icon name="cog" />

@@ -51,6 +51,9 @@ export default class ExpenseScreen extends Component {
   ]
     return (
       <View style={{flex: 1}}>
+        <View style={{marginTop: 100}}>
+          <ExpenseTrack/>
+        </View>
         <ScrollView>
           <Card>
             <CardItem>
@@ -92,7 +95,6 @@ export default class ExpenseScreen extends Component {
             <CardItem><View style={{width:50}}/><PureChart width={'100%'} height={50} data={sampleData2} type='pie' /></CardItem>
           </Card>
           </ScrollView>
-          <ExpenseTrack/>
           <Footer>
             <FooterTab>
               <Button vertical active onPress={ ()=> Actions.expense()}>
