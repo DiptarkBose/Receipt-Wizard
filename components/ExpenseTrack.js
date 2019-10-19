@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, Modal, Alert, Button, Picker } from "react-native";
+import { View, Text, Image, Modal, Alert, Button, Picker, CheckBox } from "react-native";
 import {
  Header,
  Body,
@@ -137,6 +137,7 @@ export default class ExpenseTrack extends React.Component {
     <Picker.Item label="Alcohol" value="alcohol" />
 </Picker>
  </InputGroup>
+ <InputGroup><CheckBox/></InputGroup>
  </View>
  <View>
  <Button
@@ -415,46 +416,46 @@ tx.executeSql(
  };
 
  parseResults(data)
-  {
-      let lines=data["recognitionResults"][0]["lines"];
-      // console.log(lines);
-      let results="";
-      let resultsList=[];
-      //alert(JSON.stringify(data));
-       let itemsList= [];
-       for(let j=0; j< lines.length; j++)
-      {
-        itemsList.push(lines[j]["text"].replace(/[0-9]/g, ''));
-      }
-      itemsList = itemsList.slice(itemsList.length>0? 1: 0,itemsList.length);
+   {
+       let lines=data["recognitionResults"][0]["lines"];
+       // console.log(lines);
+       let results="";
+       let resultsList=[];
+       //alert(JSON.stringify(data));
+        let itemsList= [];
+        for(let j=0; j< lines.length; j++)
+       {
+         itemsList.push(lines[j]["text"].replace(/[0-9]/g, ''));
+       }
+       itemsList = itemsList.slice(itemsList.length>0? 1: 0,itemsList.length);
 
-      for(let i=0;i<lines.length;i++)
-      {
+       for(let i=0;i<lines.length;i++)
+       {
 
-          if(i===0)
-          {
-              results+=`Name: `+lines[i]["text"];
-              this.setState({"name":lines[i]["text"]})
-          }
-          else
-          {
-              let com=lines[i]["text"].toLowerCase()
-              if(com.indexOf("total")!==-1)
-              {
-                console.log(`${com} Total exists`);
-                let matches = com.match(/\d+/g);
-                let matchText = '';
-                for(let i=0;i<matches.length;i++)
-                  matchText += matches[i];
-                resultsList.push({"totalText":com.replace(/[0-9]/g, ''),"amount":matchText});
+           if(i===0)
+           {
+               results+=`Name: `+lines[i]["text"];
+               this.setState({"name":lines[i]["text"]})
+           }
+           else
+           {
+               let com=lines[i]["text"].toLowerCase()
+               if(com.indexOf("total")!==-1)
+               {
+                 console.log(`${com} Total exists`);
+                 let matches = com.match(/\d+/g);
+                 let matchText = '';
+                 for(let i=0;i<matches.length;i++)
+                   matchText += matches[i];
+                 resultsList.push({"totalText":com.replace(/[0-9]/g, ''),"amount":matchText});
 
-              }
+               }
 
-          }
-      }
-      console.log("RESULT LIST",resultsList);
-      this.setState({detailModalVisible:true,"amount": resultsList.length > 0? resultsList[resultsList.length-1]["amount"]: 0, listOfAllItems: itemsList })   //:resultsList[resultsList.length-1]["amount"]});
-  }
+           }
+       }
+       console.log("RESULT LIST",resultsList);
+       this.setState({detailModalVisible:true,"amount": resultsList.length > 0? resultsList[resultsList.length-1]["amount"]: 0, listOfAllItems: itemsList })   //:resultsList[resultsList.length-1]["amount"]});
+   }
 }
 
 function isNumeric(value) {
