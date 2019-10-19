@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, Modal, Alert, Button } from "react-native";
+import { View, Text, Image, Modal, Alert, Button, Picker } from "react-native";
 import {
  Header,
  Body,
@@ -47,7 +47,7 @@ export default class ExpenseTrack extends React.Component {
  <View style={{ marginTop:20 }}>
  <Fab
  active={this.state.fabActive}
- direction="down"
+ direction="left"
  containerStyle={{}}
  style={{ backgroundColor: "#5067FF" }}
  onPress={() => this.setState({ fabActive: !this.state.fabActive })}
@@ -81,17 +81,16 @@ export default class ExpenseTrack extends React.Component {
  <FontAwesome name="book" color="white" />
  </Button>
  </Fab>
- <View style={{ marginTop: 22 }}>
+ <View style={{ marginTop: 60 }}>
  <Modal
  animationType="slide"
  transparent={false}
  visible={this.state.detailModalVisible}
  >
- <View style={{ marginTop: 10, flex: 1 }}>
+ <View style={{ marginTop: 70, flex: 1 }}>
  <View
  style={{
- flex: 1,
- backgroundColor: "maroon",
+ backgroundColor: "#5067FF",
  alignItems: "center"
  }}
  >
@@ -123,17 +122,24 @@ export default class ExpenseTrack extends React.Component {
  </InputGroup>
  <InputGroup>
  <Text>Category: </Text>
- <Input value={this.state.category} />
+ <Picker
+  selectedValue={this.state.language}
+  style={{height: 50, width: 100}}
+  onValueChange={(itemValue, itemIndex) =>
+    this.setState({language: itemValue})
+  }>
+    <Picker.Item label="Food" value="food" />
+    <Picker.Item label="Medicine" value="medicine" />
+    <Picker.Item label="Groceries" value="groceries" />
+    <Picker.Item label="Electricity" value="electricity" />
+    <Picker.Item label="Water" value="water" />
+    <Picker.Item label="Alcohol" value="alcohol" />
+</Picker>
  </InputGroup>
  </View>
- <View style={{ flex: 2, alignItems: "center" }}>
- <Image
- source={{ uri: `file://${this.state.image}` }}
- style={{ width: 250, height: 250 }}
- />
- </View>
- <View style={{ flex: 1, alignItems: "stretch" }}>
+ <View>
  <Button
+ color="#5067FF"
  title="Log My Expense!"
  onPress={() => {
  //Alert.alert("Your Expenses Have Been Logged!");
@@ -181,7 +187,7 @@ export default class ExpenseTrack extends React.Component {
  <View
  style={{
  flex: 1,
- backgroundColor: "maroon",
+ backgroundColor: "#5067FF",
  alignItems: "center"
  }}
  >
@@ -193,7 +199,7 @@ export default class ExpenseTrack extends React.Component {
  <List>{this.showList()}</List>
  </View>
  <View style={{ flex: 1, alignItems: "stretch" }}>
- <Button
+ <Button color="#5067FF"
  onPress={() => this.setState({ viewModalVisible: false })}
  title="Okay, I am done"
  />
@@ -347,7 +353,7 @@ export default class ExpenseTrack extends React.Component {
  }
 
  postData = async uploadOutput => {
- alert("Just Hang on!!");
+ alert("Now you can check your previous receipts by going to the receipt");
  let url =
  "https://centralindia.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze";
  return fetch(url, {
