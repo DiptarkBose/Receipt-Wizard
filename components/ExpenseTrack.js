@@ -40,7 +40,8 @@ export default class ExpenseTrack extends React.Component {
  li:
  '{"_array":[{"name":"Burger King India Pvt. Lta.","amount":"121 . 00","category":"food","date":"24","location":"file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FEasyExpense-aeb07441-928c-4147-9dd9-ddc9f0b8d0d7/ImagePicker/a2543280-fa86-4f00-a7d8-c5e9b42bcb75.jpg"},{"name":"TACO BELL","amount":"679.00","category":"food","date":"24","location":"file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FEasyExpense-aeb07441-928c-4147-9dd9-ddc9f0b8d0d7/ImagePicker/28f129be-db13-4ce1-818c-df8ea6877791.jpg"}],"length":2}',
  totalAmount: 0,
- fabActive: false
+ fabActive: false,
+ listOfAllItems: []
  };
  render() {
  return (
@@ -225,10 +226,31 @@ export default class ExpenseTrack extends React.Component {
  tx.executeSql(
  "create table if not exists details (name text primary key not null, amount text, category text,date text,location text)"
  );
+
  tx.executeSql("select * from details", [], (_, { rows }) => {
  console.log(JSON.stringify(rows));
  this.setState({ li: JSON.stringify(rows) });
  });
+
+tx.executeSql(
+  "create table if not exists itemsList (name text primary key not null, category text)"
+);
+for(let item in this.state.listOfAllItems)
+{
+tx.executeSql(
+  "insert into itemsList (name, category) values (?, ?)",
+  [
+    String(item),
+    String(this.state.category)
+  ]
+)
+}
+
+tx.executeSql(
+  "select * from itemsList",
+  [],
+  (_, { rows }) => console.log(rows.length)
+);
  },
  this.handleDbError,
  null
@@ -392,55 +414,47 @@ export default class ExpenseTrack extends React.Component {
  });
  };
 
- parseResults = data => {
- let lines = data["recognitionResults"][0]["lines"];
- let results = "";
- let resultsList = [];
- for (let i = 0; i < lines.length; i++) {
- if (i === 0) {
- results += `Name: ` + lines[i]["text"];
- this.setState({ name: lines[i]["text"] });
- } else {
- let com = lines[i]["text"].toLowerCase();
- if (com.indexOf("total") !== -1) {
- console.log(`${com} Total exists`);
- if (i + 1 < lines.length) {
- if (isNumeric(lines[i + 1]["text"])) {
- resultsList.push({
- totalText: com,
- amount: lines[i + 1]["text"]
- });
- } else {
- let j = i + 1;
- while (j < lines.length) {
- if (
- parseFloat(lines[j]["text"]) &&
- parseFloat(lines[j]["text"]) > 0
- ) {
- console.log(`ADD ${lines[j]["text"]}`);
- resultsList.push({
- totalText: com,
- amount: lines[j]["text"]
- });
- break;
- }
- console.log(`ESCAPE ${lines[j]["text"]}`);
- j += 1;
- }
- }
- }
- }
- }
- }
- if (resultsList.length > 0)
- results += `\n${resultsList[resultsList.length - 1]["totalText"]} ${
- resultsList[resultsList.length - 1]["amount"]
- }`;
- this.setState({
- detailModalVisible: true,
- amount: resultsList[resultsList.length - 1]["amount"]
- });
- };
+ parseResults(data)
+  {
+      let lines=data["recognitionResults"][0]["lines"];
+      // console.log(lines);
+      let results="";
+      let resultsList=[];
+      //alert(JSON.stringify(data));
+       let itemsList= [];
+       for(let j=0; j< lines.length; j++)
+      {
+        itemsList.push(lines[j]["text"].replace(/[0-9]/g, ''));
+      }
+      itemsList = itemsList.slice(itemsList.length>0? 1: 0,itemsList.length);
+
+      for(let i=0;i<lines.length;i++)
+      {
+
+          if(i===0)
+          {
+              results+=`Name: `+lines[i]["text"];
+              this.setState({"name":lines[i]["text"]})
+          }
+          else
+          {
+              let com=lines[i]["text"].toLowerCase()
+              if(com.indexOf("total")!==-1)
+              {
+                console.log(`${com} Total exists`);
+                let matches = com.match(/\d+/g);
+                let matchText = '';
+                for(let i=0;i<matches.length;i++)
+                  matchText += matches[i];
+                resultsList.push({"totalText":com.replace(/[0-9]/g, ''),"amount":matchText});
+
+              }
+
+          }
+      }
+      console.log("RESULT LIST",resultsList);
+      this.setState({detailModalVisible:true,"amount": resultsList.length > 0? resultsList[resultsList.length-1]["amount"]: 0, listOfAllItems: itemsList })   //:resultsList[resultsList.length-1]["amount"]});
+  }
 }
 
 function isNumeric(value) {
