@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, View, ScrollView } from 'react-native'
+import { ActivityIndicator, View, ScrollView, Picker } from 'react-native'
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, H1, Footer, FooterTab } from 'native-base';
 import * as Font from 'expo-font'
 import PureChart from 'react-native-pure-chart';
 import { Actions } from "react-native-router-flux";
+import PickerCheckBox from 'react-native-picker-checkbox';
 
 //import Footer from '../components/ExpenseFooter'
 export default class ExpenseScreen extends Component {
@@ -38,28 +39,12 @@ export default class ExpenseScreen extends Component {
         itemDescription:'Bars'
       },
       {
-        itemKey:1,
-        itemDescription:'Cigarettes'
+        itemKey:4,
+        itemDescription:'Shoe Lace'
         },
       {
-        itemKey:2,
-        itemDescription:'Movie Tickets'
-        },
-      {
-        itemKey:3,
-        itemDescription:'Alcohol'
-      },
-      {
-        itemKey:1,
-        itemDescription:'Cigarettes'
-        },
-      {
-        itemKey:2,
-        itemDescription:'Movie Tickets'
-        },
-      {
-        itemKey:3,
-        itemDescription:'Alcohol'
+        itemKey:5,
+        itemDescription:'Mortein Mosquito Spray'
         }
     ];
     return (
@@ -74,7 +59,20 @@ export default class ExpenseScreen extends Component {
                 </Body>
               </Left>
             </CardItem>
+            <PickerCheckBox
+              data={items}
+              headerComponent={<Text style={{fontSize:25}} >items</Text>}
+              OnConfirm={(pItems) => this.handleConfirm(pItems)}
+              ConfirmButtonTitle='OK'
+              DescriptionField='itemDescription'
+              KeyField='itemKey'
+              placeholder='Click here to select items for banning'
+              arrowColor='#FFD740'
+              arrowSize={10}
+              placeholderSelectedItems ='$count selected item(s)'
+            />
           </Card>
+
           </ScrollView>
           <Footer>
             <FooterTab>
