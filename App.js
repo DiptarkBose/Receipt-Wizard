@@ -18,7 +18,7 @@ const App = () => (
             <Scene
                 key="expense"
                 type="replace"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={ExpenseScreen}
@@ -27,7 +27,7 @@ const App = () => (
             <Scene
                 key="lifestyle"
                 type="replace"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={LifestyleScreen}
@@ -35,7 +35,7 @@ const App = () => (
             <Scene
                 key="refill"
                 type="replace"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={RefillScreen}
@@ -43,14 +43,14 @@ const App = () => (
             <Scene
                 key="belly"
                 type="replace"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={BellyScreen}
             />
             <Scene
                 key="disagg"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={DisaggScreen}
@@ -58,7 +58,7 @@ const App = () => (
             <Scene
                 key="survey"
                 type="replace"
-                title="Spend Sight"
+                title="Spendsta"
                 navigationBarStyle={styles.navBar}
                 titleStyle={styles.title}
                 component={SurveyScreen}

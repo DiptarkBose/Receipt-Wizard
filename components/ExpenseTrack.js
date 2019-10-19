@@ -44,7 +44,7 @@ export default class ExpenseTrack extends React.Component {
  };
  render() {
  return (
- <View style={{ flex: 1, flexDirection: "column", alignItems: "stretch" }}>
+ <View style={{ marginTop:20 }}>
  <Fab
  active={this.state.fabActive}
  direction="down"

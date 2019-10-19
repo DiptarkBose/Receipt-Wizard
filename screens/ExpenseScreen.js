@@ -51,9 +51,17 @@ export default class ExpenseScreen extends Component {
   ]
     return (
       <View style={{flex: 1}}>
-        <View style={{marginTop: 100}}>
-          <ExpenseTrack/>
-        </View>
+      <Card>
+        <CardItem>
+          <Left>
+            <Body>
+              <Text>Welcome to Spendsta!</Text>
+              <Text note>Upload your receipts and get meaningful insights about your lifestyle choices, and much more.</Text>
+              <ExpenseTrack/>
+            </Body>
+          </Left>
+        </CardItem>
+      </Card>
         <ScrollView>
           <Card>
             <CardItem>
