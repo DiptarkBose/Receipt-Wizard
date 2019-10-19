@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, StyleProvider } from 'native-base';
-import {ToastAndroid} from 'react-native';
+import {ToastAndroid, View} from 'react-native';
 import { Actions } from "react-native-router-flux";
 
 export default class LifestyleFooter extends Component {
@@ -8,7 +8,7 @@ export default class LifestyleFooter extends Component {
   }
   render() {
     return (
-        <Container>
+        <View style={{flex:1}}>
           <Footer>
             <FooterTab>
               <Button vertical onPress={ ()=> Actions.expense()}>
@@ -29,7 +29,7 @@ export default class LifestyleFooter extends Component {
               </Button>
             </FooterTab>
           </Footer>
-        </Container>
+        </View>
     );
   }
 }

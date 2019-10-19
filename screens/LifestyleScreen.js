@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, View } from 'react-native'
-import { Container, Content, Card, CardItem, Left, Right, Icon, Body, Text, Image, Thumbnail, Button } from 'native-base'
+import { ActivityIndicator, View, ScrollView } from 'react-native'
+import { Container, Content, Card, CardItem, Left, Right, Icon, Body, Text, Image, Thumbnail, Button, Footer, FooterTab } from 'native-base'
 import * as Font from 'expo-font'
+import * as Progress from 'react-native-progress';
+import { Actions } from "react-native-router-flux";
 
-import Footer from '../components/LifestyleFooter'
+//import Footer from '../components/LifestyleFooter'
+
 export default class LifestyleScreen extends Component {
 
   state = {
@@ -23,98 +26,98 @@ export default class LifestyleScreen extends Component {
       return <ActivityIndicator />
     }
     return (
-      <View style={{flex: 1}}>
-        <Content>
+      <View style={{flex: 1, justifyContent: 'space-between'}}>
+        <ScrollView>
           <Card>
             <CardItem>
               <Left>
                 <Thumbnail source={require('../images/wiz.jpg')} />
                 <Body>
                   <Text>Healthy/Unhealthy?</Text>
-                  <Text note>You are leading a very unhealthy lifestyle!</Text>
+                  <Text note>Your food intake indicates an unhealthy lifestyle!</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-              </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
+              <View style={{width:80}}/>
+              <Button rounded success onPress={ ()=> Actions.disagg()}>
+                <Text>Detailed Insights</Text>
+              </Button>
             </CardItem>
           </Card>
-        </Content>
-        <Content>
+
+
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail source={require('../images/wiz.jpg')} />
+                <Body>
+                  <Text>Alcoholic?</Text>
+                  <Text note>Your alcohol consumption is high!</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Text>Alcohol Intake: </Text>
+              <View style={{width:10}}/>
+              <Progress.Bar progress={0.9} width={200} />
+            </CardItem>
+          </Card>
+
           <Card>
             <CardItem>
               <Left>
                 <Thumbnail source={require('../images/wiz.jpg')} />
                 <Body>
                   <Text>Electricity Consumption?</Text>
-                  <Text note>Ideal consumption of electricity detected!</Text>
+                  <Text note>You are highly energy efficient!</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-              </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
+              <Text>Energy Expense: </Text>
+              <View style={{width:8}}/>
+              <Progress.Bar progress={0.3} width={200} />
             </CardItem>
           </Card>
-        </Content>
-        <Content>
+
           <Card>
             <CardItem>
               <Left>
                 <Thumbnail source={require('../images/wiz.jpg')} />
                 <Body>
-                  <Text>Water Consumption?</Text>
-                  <Text note>High water bill! Use water judiciously!</Text>
+                  <Text>Water Expense?</Text>
+                  <Text note>Your water bill indicates wasteful usage!</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-              </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
+              <Text>Water Expense: </Text>
+              <View style={{width:8}}/>
+              <Progress.Bar progress={0.7} width={200} />
             </CardItem>
           </Card>
-        </Content>
-        <Footer/>
+        </ScrollView>
+        <Footer>
+          <FooterTab>
+            <Button vertical onPress={ ()=> Actions.expense()}>
+              <Icon active name="pulse" />
+              <Text>Expense</Text>
+            </Button>
+            <Button vertical active onPress={ ()=> Actions.lifestyle()}>
+              <Icon name="happy" />
+              <Text>Lifestyle</Text>
+            </Button>
+            <Button vertical onPress={ ()=> Actions.refill()}>
+              <Icon name="cart" />
+              <Text>Refill</Text>
+            </Button>
+            <Button vertical onPress={ ()=> Actions.belly()}>
+              <Icon name="apps" />
+              <Text>Recipes</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </View>
     )
   }
