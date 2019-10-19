@@ -23,6 +23,7 @@
     "react-native-progress": "^4.0.0",
     "react-native-pure-chart": "0.0.24",
     "react-native-router-flux": "^4.0.6",
+    "react-native-thumbnail-video": "^0.1.2",
     "react-native-web": "^0.11.7"
   },
   "devDependencies": {
