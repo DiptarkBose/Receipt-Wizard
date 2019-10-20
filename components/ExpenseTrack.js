@@ -349,8 +349,8 @@ tx.executeSql(
 
  uploadImage(uri, callback) {
  let timestamp = ((Date.now() / 1000) | 0).toString();
- let api_key = "661715462383451";
- let api_secret = "v654zQ_f3dD38f8xaYjllSBdmGY";
+ let api_key = "xxxxxxxxxxxxxxxxxxxxxx";
+ let api_secret = "xxxxxxxxxxxxxxxxxxxxxxx";
  let cloud = "da3aybov8";
  let hash_string = "timestamp=" + timestamp + api_secret;
  let signature = CryptoJS.SHA1(hash_string).toString();
@@ -383,7 +383,7 @@ tx.executeSql(
  method: "POST",
  headers: {
  "Content-Type": "application/json",
- "Ocp-Apim-Subscription-Key": "6085c28359cb4c0c8dccfd0366da0252"
+ "Ocp-Apim-Subscription-Key": "xxxxxxxxxxxxxxxxxxxxxxx"
  // 'Content-Type': 'application/x-www-form-urlencoded',
  },
  body: '{"url": ' + '"' + uploadOutput["url"] + '"}'
@@ -403,7 +403,7 @@ tx.executeSql(
  fetch(operationLocation, {
  headers: {
  "Content-Type": "application/json",
- "Ocp-Apim-Subscription-Key": "6085c28359cb4c0c8dccfd0366da0252"
+ "Ocp-Apim-Subscription-Key": "xxxxxxxxxxxxxxxxxxxxxxxxxx"
  },
 
  type: "GET"
