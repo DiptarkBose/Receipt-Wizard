@@ -1,4 +1,4 @@
-# Spendtsa
+# Spendsta
 
 Instructions to run the application
 
